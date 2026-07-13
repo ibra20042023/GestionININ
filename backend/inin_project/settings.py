@@ -4,6 +4,8 @@ Django settings for inin_project project.
 
 from pathlib import Path
 from datetime import timedelta
+import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,12 +16,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ==============================================================================
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$r5u2@6y3yustw=qj!@2q5o8!6v77+b7dq2f_yw6etjl!%$b&5'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-$r5u2@6y3yustw=qj!@2q5o8!6v77+b7dq2f_yw6etjl!%$b&5')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com']
 
 
 # ==============================================================================
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',          # ← CORS, avant CommonMiddleware
     'django.middleware.common.CommonMiddleware',
@@ -83,14 +86,10 @@ WSGI_APPLICATION = 'inin_project.wsgi.application'
 # ==============================================================================
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ININassociation',
-        'USER': 'postgres',
-        'PASSWORD': 'careerguidance',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://postgres:careerguidance@localhost:5432/ININassociation',
+        conn_max_age=600,
+    )
 }
 
 
@@ -211,7 +210,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'   # Collecte pour la production (collectstatic)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+
+FRONTEND_URL = os.environ.get('FRONTEND_URL')
+if FRONTEND_URL:
+    CORS_ALLOWED_ORIGINS.append(FRONTEND_URL)
+
+
+    
 # Fichiers uploadés par les utilisateurs (photos actions, justificatifs PDF, etc.)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
