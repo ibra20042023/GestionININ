@@ -10,6 +10,7 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SITE_URL = os.environ.get('SITE_URL', 'http://127.0.0.1:8000')
 
 # ==============================================================================
 # SÉCURITÉ
@@ -21,7 +22,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-$r5u2@6y3yustw=qj!@2q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com']
+ALLOWED_HOSTS = ["gestioninin.onrender.com", "localhost", "127.0.0.1"]
+
+CORS_ALLOWED_ORIGINS = [
+    "https://gestion-inin.vercel.app",  
+    "http://localhost:5173",            
+]
 
 
 # ==============================================================================
@@ -50,11 +56,10 @@ INSTALLED_APPS = [
 # ==============================================================================
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware', 
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',          # ← CORS, avant CommonMiddleware
-    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',          
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',

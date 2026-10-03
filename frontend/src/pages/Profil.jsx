@@ -34,9 +34,9 @@ import {
 import { useAuth } from '../context/AuthContext';
 
 // ── API endpoints ─────────────────────────────────────────────
-const API_PROFILE        = 'http://127.0.0.1:8000/api/user/profile/';
-const API_PROFILE_UPDATE = 'http://127.0.0.1:8000/api/user/profile/update/';
-const API_CHANGE_PWD     = 'http://127.0.0.1:8000/api/user/change-password/';
+const API_PROFILE        = `${import.meta.env.VITE_API_URL}/api/user/profile/`;
+const API_PROFILE_UPDATE = `${import.meta.env.VITE_API_URL}/api/user/profile/update/`;
+const API_CHANGE_PWD     = `${import.meta.env.VITE_API_URL}/api/user/change-password/`;
 
 const getToken   = () =>
   localStorage.getItem('access_token') ||
@@ -587,7 +587,7 @@ export default function Profil() {
     || (profile?.photo_profil
       ? (profile.photo_profil.startsWith('http')
           ? profile.photo_profil
-          : `http://127.0.0.1:8000${profile.photo_profil}`)
+          : `${import.meta.env.VITE_API_URL}${profile.photo_profil}`)
       : null);
 
   const initials = `${(form.first_name || '?').slice(0, 1)}${(form.last_name || '').slice(0, 1)}`.toUpperCase();

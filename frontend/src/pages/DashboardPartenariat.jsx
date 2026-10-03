@@ -51,7 +51,7 @@ const C = {
 
 const NAV_HEIGHT      = 85;
 
-// ✅ Chemins relatifs — l'instance api a déjà baseURL = 'http://127.0.0.1:8000/api/'
+// ✅ Chemins relatifs — l'instance api a déjà baseURL = `${import.meta.env.VITE_API_URL}/api/`
 const API_PARTENAIRES = 'partenaires/';
 const API_PART_ID     = (id) => `partenaires/${id}/`;
 const API_ACTIONS     = 'actions/';
@@ -196,7 +196,7 @@ function ModalFooter({ onClose, onSubmit, loading, label, color }) {
 function Avatar({ user, size = 58 }) {
   const [err, setErr] = useState(false);
   const photoUrl = user?.photo_profil
-    ? (user.photo_profil.startsWith('http') ? user.photo_profil : `http://127.0.0.1:8000${user.photo_profil}`)
+    ? (user.photo_profil.startsWith('http') ? user.photo_profil : `${import.meta.env.VITE_API_URL}${user.photo_profil}`)
     : null;
   const initials = (user?.first_name || user?.username || 'CP').slice(0, 2).toUpperCase();
   if (photoUrl && !err) {
@@ -424,7 +424,7 @@ function ModalPartenaire({ onClose, onSuccess, initial = null }) {
               <img
                 src={initial.logo.startsWith('http')
                   ? initial.logo
-                  : `http://127.0.0.1:8000${initial.logo}`}
+                  : `${import.meta.env.VITE_API_URL}${initial.logo}`}
                 alt="Logo actuel"
                 style={{ width: '40px', height: '40px', borderRadius: '8px',
                   objectFit: 'contain', border: `1px solid ${C.border}` }}
@@ -760,7 +760,7 @@ function SectionPartenaires({ onStatsRefresh }) {
                     {/* Logo */}
                     <td style={{ padding: '12px 16px', borderBottom: `1px solid ${C.border}`, verticalAlign: 'middle' }}>
                       {p.logo ? (
-                        <img src={p.logo.startsWith('http') ? p.logo : `http://127.0.0.1:8000${p.logo}`}
+                        <img src={p.logo.startsWith('http') ? p.logo : `${import.meta.env.VITE_API_URL}${p.logo}`}
                           alt={p.nom} style={{ width: '36px', height: '36px', borderRadius: '8px',
                             objectFit: 'contain', border: `1px solid ${C.border}` }} />
                       ) : (

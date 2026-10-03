@@ -6,7 +6,7 @@ import axios from 'axios';
 import { X, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 
 // ── Configuration API ─────────────────────────────────────
-const API_DONS = 'http://127.0.0.1:8000/api/dons/';
+const API_DONS = `${import.meta.env.VITE_API_URL}/api/dons/`;
 const getToken = () =>
   localStorage.getItem('access_token') ||
   sessionStorage.getItem('access_token') ||

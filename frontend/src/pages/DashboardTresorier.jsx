@@ -54,14 +54,14 @@ function genererMoisDepuisDebut() {
 }
 
 const NAV_HEIGHT   = 85;
-const API_STATS      = 'http://127.0.0.1:8000/api/finance/stats/';
-const API_DONS       = 'http://127.0.0.1:8000/api/dons/';
-const API_RECU       = (id) => `http://127.0.0.1:8000/api/dons/${id}/generer_recu/`;
-const API_DEPENSE    = 'http://127.0.0.1:8000/api/depenses/';
-const API_ACTIONS    = 'http://127.0.0.1:8000/api/actions/';
-const API_COTISATION = 'http://127.0.0.1:8000/api/cotisations/';
-const API_MEMBRES    = 'http://127.0.0.1:8000/api/membres/';  // RH only
-const API_MEMBRES_TRESORIER = 'http://127.0.0.1:8000/api/membres/'; // MembreViewSet — accessible au Trésorier
+const API_STATS      = `${import.meta.env.VITE_API_URL}/api/finance/stats/`;
+const API_DONS       = `${import.meta.env.VITE_API_URL}/api/dons/`;
+const API_RECU       = (id) => `${import.meta.env.VITE_API_URL}/api/dons/${id}/generer_recu/`;
+const API_DEPENSE    = `${import.meta.env.VITE_API_URL}/api/depenses/`;
+const API_ACTIONS    = `${import.meta.env.VITE_API_URL}/api/actions/`;
+const API_COTISATION = `${import.meta.env.VITE_API_URL}/api/cotisations/`;
+const API_MEMBRES    = `${import.meta.env.VITE_API_URL}/api/membres/`;  // RH only
+const API_MEMBRES_TRESORIER = `${import.meta.env.VITE_API_URL}/api/membres/`; // MembreViewSet — accessible au Trésorier
 
 const getToken   = () => localStorage.getItem('access_token') || sessionStorage.getItem('access_token') || '';
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}` });
@@ -170,7 +170,7 @@ function ModalFooter({ onClose, onSubmit, loading, label, color }) {
 function Avatar({ user, size=58 }) {
   const [err, setErr] = useState(false);
   const photoUrl = user?.photo_profil
-    ? (user.photo_profil.startsWith('http') ? user.photo_profil : `http://127.0.0.1:8000${user.photo_profil}`)
+    ? (user.photo_profil.startsWith('http') ? user.photo_profil : `${import.meta.env.VITE_API_URL}${user.photo_profil}`)
     : null;
   const initials = (user?.first_name || user?.username || 'T').slice(0,2).toUpperCase();
 

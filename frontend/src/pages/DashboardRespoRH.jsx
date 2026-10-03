@@ -53,7 +53,7 @@ const C = {
 };
 
 const NAV_HEIGHT      = 85;
-const API_BASE        = 'http://127.0.0.1:8000';
+const API_BASE        = import.meta.env.VITE_API_URL;
 const API_RH_STATS    = `${API_BASE}/api/rh/stats/`;
 const API_DEMANDES    = `${API_BASE}/api/demandes-adhesion/`;
 const API_DEMANDE_ID  = (id) => `${API_BASE}/api/demandes-adhesion/${id}/`;

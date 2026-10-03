@@ -30,7 +30,7 @@ import {
 } from 'lucide-react';
 
 // ── Config API ────────────────────────────────────────────────
-const API_BASE    = 'http://127.0.0.1:8000';
+const API_BASE    = import.meta.env.VITE_API_URL;
 const API_MEMBRES = `${API_BASE}/api/liste-membres/`;
 const API_STATS   = `${API_BASE}/api/stats-membres/`;
 
@@ -562,7 +562,7 @@ export default function Membres() {
         console.error('   → Message     :', error.message);
         setError(
           !error.response
-            ? 'Impossible de joindre le serveur Django. Vérifiez que http://127.0.0.1:8000 est démarré et que CORS autorise http://localhost:5173.'
+            ? 'Impossible de joindre le serveur. Veuillez réessayer dans quelques instants.'
             : `Erreur serveur ${error.response.status} — ${error.message}`
         );
       })

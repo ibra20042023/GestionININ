@@ -57,7 +57,7 @@ const stagger = {
 };
 
 // ── Constante API ─────────────────────────────────────────────
-const API_ACTIONS_URL = 'http://127.0.0.1:8000/api/actions/';
+const API_ACTIONS_URL = `${import.meta.env.VITE_API_URL}/api/actions/`;
 
 // ── Config types ──────────────────────────────────────────────
 const TYPE_CONFIG = {

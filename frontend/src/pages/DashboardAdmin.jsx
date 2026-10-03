@@ -426,7 +426,7 @@ function ConfirmModal({ message, onConfirm, onClose, loading }) {
 function Avatar({ user, size = 52 }) {
   const [err, setErr] = useState(false);
   const photoUrl = user?.photo_profil
-    ? (user.photo_profil.startsWith('http') ? user.photo_profil : `http://127.0.0.1:8000${user.photo_profil}`)
+    ? (user.photo_profil.startsWith('http') ? user.photo_profil : `${import.meta.env.VITE_API_URL}${user.photo_profil}`)
     : null;
   const initials = (user?.first_name || user?.username || 'AD').slice(0, 2).toUpperCase();
   if (photoUrl && !err) {
@@ -846,7 +846,7 @@ function ModalMembre({ initial, onClose, onSuccess }) {
     if (!initial?.photo_profil) return null;
     return initial.photo_profil.startsWith('http')
       ? initial.photo_profil
-      : `http://127.0.0.1:8000${initial.photo_profil}`;
+      : `${import.meta.env.VITE_API_URL}${initial.photo_profil}`;
   });
 
   const [loading, setLoad] = useState(false);
@@ -1183,7 +1183,7 @@ function ModalPartenaire({ initial, onClose, onSuccess }) {
               <img
                 src={initial.logo.startsWith('http')
                   ? initial.logo
-                  : `http://127.0.0.1:8000${initial.logo}`}
+                  : `${import.meta.env.VITE_API_URL}${initial.logo}`}
                 alt="Logo actuel"
                 style={{ width: '40px', height: '40px', borderRadius: '8px',
                   objectFit: 'contain', border: `1px solid ${C.inkBorder}` }}
@@ -1639,7 +1639,7 @@ function ModalNouvelleAction({ onClose, onSuccess }) {
       if (form.budget_prevu)        fd.append('budget_prevu',       parseFloat(form.budget_prevu));
       if (form.nb_participants_max) fd.append('nb_participants_max', parseInt(form.nb_participants_max));
       if (imageFile)                fd.append('image',              imageFile, imageFile.name);
-      await axios.post('http://127.0.0.1:8000/api/actions/', fd, { headers: _authHeader() });
+      await api.post(API.actions, fd);
       onSuccess?.();
       onClose();
     } catch (err) {

@@ -27,7 +27,7 @@ import HeroSection  from '../components/HeroSection';
 import StatsSection from '../components/StatsSection';
 
 // ── Config API ────────────────────────────────────────────────
-const API_BASE         = 'http://127.0.0.1:8000';
+const API_BASE         = import.meta.env.VITE_API_URL;
 const API_LAST_ACTIONS = `${API_BASE}/api/last-actions/`;
 
 // ── Configs couleur par type / statut ────────────────────────

@@ -49,11 +49,11 @@ const C = {
 
 const NAV_HEIGHT = 85;
 
-const API_MES_ACTIONS = 'http://127.0.0.1:8000/api/charge-projet/actions/';
-const API_CP_STATS    = 'http://127.0.0.1:8000/api/charge-projet/stats/';
-const API_ACTIONS     = 'http://127.0.0.1:8000/api/actions/';
-const API_CLOTURER    = (id) => `http://127.0.0.1:8000/api/actions/${id}/cloturer/`;
-const API_DASHBOARD   = 'http://127.0.0.1:8000/api/membres/me/dashboard/';
+const API_MES_ACTIONS = `${import.meta.env.VITE_API_URL}/api/charge-projet/actions/`;
+const API_CP_STATS    = `${import.meta.env.VITE_API_URL}/api/charge-projet/stats/`;
+const API_ACTIONS     = `${import.meta.env.VITE_API_URL}/api/actions/`;
+const API_CLOTURER    = (id) => `${import.meta.env.VITE_API_URL}/api/actions/${id}/cloturer/`;
+const API_DASHBOARD   = `${import.meta.env.VITE_API_URL}/api/membres/me/dashboard/`;
 
 // ── Helpers ───────────────────────────────────────────────────
 const getToken = () =>
@@ -69,7 +69,7 @@ const formatMontant = (val) =>
     : '—';
 const mediaUrl = (path) => {
   if (!path) return null;
-  return path.startsWith('http') ? path : `http://127.0.0.1:8000${path}`;
+  return path.startsWith('http') ? path : `${import.meta.env.VITE_API_URL}${path}`;
 };
 
 // ── Utilitaire cotisations ────────────────────────────────────
